@@ -14,16 +14,17 @@ const { moviesQueryParamsSchema } = require("../schemas/moviesQueryParams")
 
 const router = express.Router()
 
-router.get("/import", moviesImportFormRequestHandler)
-router.post("/", moviesPostRequestHandler)
-router.delete("/:id", moviesDeleteRequestHandler)
-router.patch("/:id", moviesPatchRequestHandler)
-router.get("/:id", moviesGetRequestHandler)
+router.get("/import", auth, moviesImportFormRequestHandler)
+router.post("/", auth, moviesPostRequestHandler)
+router.delete("/:id", auth, moviesDeleteRequestHandler)
+router.patch("/:id", auth, moviesPatchRequestHandler)
+router.get("/:id", auth, moviesGetRequestHandler)
 router.get(
   "/",
+  auth,
   queryValidator(moviesQueryParamsSchema),
   moviesGetListRequestHandler
 )
-router.post("/import", moviesImportRequestHandler)
+router.post("/import", auth, moviesImportRequestHandler)
 
 module.exports = router
