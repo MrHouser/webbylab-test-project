@@ -1,12 +1,8 @@
 const express = require("express")
+const { sessionsPostRequestHandler } = require("../handlers/sessions")
+
 const router = express.Router()
 
-router.get("/", async (req, res) => {
-  res.json({
-    status: "succes",
-    code: 200,
-    message: "Hello from sessions",
-  })
-})
+router.post("/", sessionsPostRequestHandler)
 
 module.exports = router

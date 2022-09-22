@@ -1,7 +1,7 @@
 const express = require("express")
-const router = express.Router()
-
 const usersHandler = require("../handlers/users")
+
+const router = express.Router()
 
 router.post("/", usersHandler.usersPostRequestHandler)
 

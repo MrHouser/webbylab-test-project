@@ -12,7 +12,7 @@ const usersPostRequestHandler = async (req, res) => {
     }
 
     const { email, name, password } = req.body
-    const existingUser = await User.findOne({ email })
+    const existingUser = await User.findOne({ where: { email } })
     if (existingUser) {
       return res.status(409).json({ message: "User Already Exist" })
     }
@@ -24,12 +24,11 @@ const usersPostRequestHandler = async (req, res) => {
       name,
       password: encryptedPassword,
     })
+    const userId = user.get(id)
 
-    const token = jwt.sign(
-      { user_id: user.getDataValue(id), email },
-      process.env.TOKEN_KEY,
-      { expiresIn: "1d" }
-    )
+    const token = jwt.sign({ user_id: userId, email }, process.env.TOKEN_KEY, {
+      expiresIn: "1d",
+    })
 
     res.status(201).json({
       token,
