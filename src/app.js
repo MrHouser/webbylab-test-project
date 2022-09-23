@@ -1,5 +1,7 @@
 const express = require("express")
+const swaggerUi = require("swagger-ui-express")
 
+const swaggerDocument = require("../swagger.json")
 const usersRouter = require("./routes/usersRouter")
 const sessionsRouter = require("./routes/sessionsRouter")
 const moviesRouter = require("./routes/moviesRouter")
@@ -8,6 +10,7 @@ const BASE_URL = "/api/v1"
 const app = express()
 
 app.use(express.json())
+app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use(`${BASE_URL}/users`, usersRouter)
 app.use(`${BASE_URL}/sessions`, sessionsRouter)

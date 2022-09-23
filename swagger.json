@@ -1,0 +1,287 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Movies API"
+  },
+  "basePath": "/api/v1",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User data",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": ["Sessions"],
+        "summary": "Authorize your user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User data",
+            "schema": {
+              "$ref": "#/definitions/Sessions"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          }
+        }
+      }
+    },
+    "/movies": {
+      "post": {
+        "tags": ["Movies"],
+        "summary": "Add a new movie",
+        "parameters": [
+          {
+            "name": "movie",
+            "in": "body",
+            "description": "Movie data",
+            "schema": {
+              "$ref": "#/definitions/Movie"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MovieResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Movies"],
+        "summary": "Get movie info",
+        "parameters": [
+          {
+            "name": "actor",
+            "in": "query",
+            "description": "Actor name"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Movie title"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Movie title or actor name"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by id, title or year"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "ASC or DESC"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Max response data length"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Start from"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MovieResponse"
+            }
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "delete": {
+        "tags": ["Movies"],
+        "summary": "Delete movie",
+        "parameters": [
+          {
+            "name": "movie",
+            "in": "path",
+            "description": "Movie id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Movies"],
+        "summary": "Update movie",
+        "parameters": [
+          {
+            "name": "movie",
+            "in": "path",
+            "description": "Movie id"
+          },
+          {
+            "name": "movie",
+            "in": "body",
+            "description": "Movie data",
+            "schema": {
+              "$ref": "#/definitions/Movie"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MovieResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Movies"],
+        "summary": "Get movie info",
+        "parameters": [
+          {
+            "name": "movie",
+            "in": "path",
+            "description": "Movie id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MovieResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": ["email", "name", "password", "confirmPassword"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "Sessions": {
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Movie": {
+      "required": ["title", "year", "format", "actors"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "actors": {
+          "type": "string"
+        }
+      }
+    },
+    "UserResponse": {
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "MovieResponse": {
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "number", "example": "1" },
+            "title": { "type": "string" },
+            "year": { "type": "number", "example": "1999" },
+            "format": { "type": "string" },
+            "actors": { "type": "string" },
+            "updatedAt": { "type": "string" },
+            "createdAt": { "type": "string" }
+          }
+        },
+        "status": {
+          "type": "string",
+          "example": "Success"
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    }
+  }
+}
