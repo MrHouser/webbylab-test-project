@@ -15,6 +15,12 @@ TOKEN_KEY=yoursecret
 APP_PORT=3000
 ```
 
+Install the dependencies:
+
+```
+npm i
+```
+
 Run the following command to start the app:
 
 ```
