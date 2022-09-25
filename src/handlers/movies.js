@@ -185,7 +185,7 @@ const moviesImportRequestHandler = async (req, res) => {
         "/../../uploaded-files/",
         files?.someExpressFiles?.originalFilename
       )
-      fs.rename(tempFilePath, projectFilePath, (error) => {
+      fs.copyFile(tempFilePath, projectFilePath, (error) => {
         if (error) {
           console.log(error)
         }
