@@ -33,7 +33,7 @@ const moviesPostRequestHandler = async (req, res) => {
         data: movie,
       })
     } else {
-      res.status(400).json({ message: `Movie: "${title}" already exists` })
+      res.status(400).json({ message: `Movie: '${title}' already exists` })
     }
   } catch (error) {
     console.log(error)
