@@ -14,17 +14,25 @@ const moviesPostRequestHandler = async (req, res) => {
 
     const { title, year, format, actors } = req.body
 
-    const movie = await Movie.create({
-      title,
-      year,
-      format,
-      actors: actors.toString(),
+    const existingMovie = await Movie.findOne({
+      where: { title: title.trim() },
     })
 
-    res.status(201).json({
-      status: "Success",
-      data: movie,
-    })
+    if (!existingMovie) {
+      const movie = await Movie.create({
+        title: title.trim(),
+        year,
+        format,
+        actors: actors.toString(),
+      })
+
+      res.status(201).json({
+        status: "Success",
+        data: movie,
+      })
+    } else {
+      res.status(400).json({ message: `Movie: "${title}" already exists` })
+    }
   } catch (error) {
     console.log(error)
   }
