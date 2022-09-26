@@ -134,16 +134,22 @@ const moviesGetListRequestHandler = async (req, res) => {
     })
 
     if (actor) {
-      moviesResponse = movies.filter((movie) => movie.actors.includes(actor))
+      moviesResponse = movies.filter((movie) =>
+        movie.actors.toLowerCase().includes(actor.toLowerCase())
+      )
 
       return setMoviesResponse(moviesResponse, res)
     } else if (title) {
-      moviesResponse = movies.filter((movie) => movie.title.includes(title))
+      moviesResponse = movies.filter((movie) =>
+        movie.title.toLowerCase().includes(title.toLowerCase())
+      )
 
       return setMoviesResponse(moviesResponse, res)
     } else if (search) {
       moviesResponse = movies.filter(
-        (movie) => movie.title.includes(search) || movie.actors.includes(search)
+        (movie) =>
+          movie.title.toLowerCase().includes(search.toLowerCase()) ||
+          movie.actors.toLowerCase().includes(search.toLowerCase())
       )
 
       return setMoviesResponse(moviesResponse, res)
