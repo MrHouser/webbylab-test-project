@@ -190,6 +190,10 @@ const moviesImportRequestHandler = async (req, res) => {
           console.log(error)
         }
         fs.readFile(projectFilePath, "utf8", (error, data) => {
+          if (!data) {
+            return res.send(`<h2>The file is empty</h2>`)
+          }
+
           if (error) {
             console.log(error)
           }
