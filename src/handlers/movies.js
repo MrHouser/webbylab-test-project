@@ -179,6 +179,9 @@ const moviesImportRequestHandler = async (req, res) => {
           message: "Something went wrong",
         })
       }
+      if (files?.someExpressFiles?.mimetype !== "text/plain") {
+        return res.send(`<h2>File must be .txt format</h2>`)
+      }
       const tempFilePath = files?.someExpressFiles?.filepath
       const projectFilePath = path.join(
         __dirname,
