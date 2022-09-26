@@ -1,6 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const formidable = require("formidable")
+const { Sequelize } = require("sequelize")
 const { postMoviesSchema } = require("../schemas/movies")
 const { Movie } = require("../models/movies")
 const convertText = require("../utils/textToObjectsArray")
@@ -127,7 +128,7 @@ const moviesGetListRequestHandler = async (req, res) => {
 
     let moviesResponse
     const movies = await Movie.findAll({
-      order: [[sort, order]],
+      order: [[Sequelize.fn("lower", Sequelize.col(sort)), order]],
       limit: Number(limit),
       offset: Number(offset),
     })
@@ -147,11 +148,7 @@ const moviesGetListRequestHandler = async (req, res) => {
 
       return setMoviesResponse(moviesResponse, res)
     } else {
-      return res.status(200).json({
-        status: "Success",
-        data: movies,
-        meta: { total: movies.length },
-      })
+      return setMoviesResponse(movies, res)
     }
   } catch (error) {
     console.log(error)
