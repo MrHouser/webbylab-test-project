@@ -4,20 +4,29 @@ const moviesQueryParamsSchema = Joi.object({
   actor: Joi.string()
     .pattern(/([a-zA-Z])\w+/)
     .optional()
+    .trim()
+    .min(2)
     .messages({
-      "string.pattern.base": "actor parameter can only consist of letters",
+      "string.pattern.base":
+        "actor parameter can only consist of letters and must be minimum 2 characters long",
     }),
   title: Joi.string()
     .pattern(/([a-zA-Z])\w+/)
     .optional()
+    .trim()
+    .min(2)
     .messages({
-      "string.pattern.base": "title parameter can only consist of letters",
+      "string.pattern.base":
+        "title parameter can only consist of letters and must be minimum 2 characters long",
     }),
   search: Joi.string()
     .pattern(/([a-zA-Z])\w+/)
     .optional()
+    .trim()
+    .min(2)
     .messages({
-      "string.pattern.base": "search parameter can only consist of letters",
+      "string.pattern.base":
+        "search parameter can only consist of letters and must be minimum 2 characters long",
     }),
   sort: Joi.string()
     .valid("id", "title", "year")
