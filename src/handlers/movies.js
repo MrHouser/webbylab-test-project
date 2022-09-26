@@ -4,6 +4,7 @@ const formidable = require("formidable")
 const { postMoviesSchema } = require("../schemas/movies")
 const { Movie } = require("../models/movies")
 const convertText = require("../utils/textToObjectsArray")
+const setMoviesResponse = require("../utils/setMoviesResponse")
 
 const moviesPostRequestHandler = async (req, res) => {
   try {
@@ -133,27 +134,18 @@ const moviesGetListRequestHandler = async (req, res) => {
 
     if (actor) {
       moviesResponse = movies.filter((movie) => movie.actors.includes(actor))
-      return res.status(200).json({
-        status: "Success",
-        data: moviesResponse,
-        meta: { total: moviesResponse.length },
-      })
+
+      return setMoviesResponse(moviesResponse, res)
     } else if (title) {
       moviesResponse = movies.filter((movie) => movie.title.includes(title))
-      return res.status(200).json({
-        status: "Success",
-        data: moviesResponse,
-        meta: { total: moviesResponse.length },
-      })
+
+      return setMoviesResponse(moviesResponse, res)
     } else if (search) {
       moviesResponse = movies.filter(
         (movie) => movie.title.includes(search) || movie.actors.includes(search)
       )
-      return res.status(200).json({
-        status: "Success",
-        data: moviesResponse,
-        meta: { total: moviesResponse.length },
-      })
+
+      return setMoviesResponse(moviesResponse, res)
     } else {
       return res.status(200).json({
         status: "Success",
