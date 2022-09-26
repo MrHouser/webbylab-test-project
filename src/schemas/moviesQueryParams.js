@@ -2,19 +2,19 @@ const Joi = require("joi")
 
 const moviesQueryParamsSchema = Joi.object({
   actor: Joi.string()
-    .pattern(/^[a-zA-Z]+$/)
+    .pattern(/([a-zA-Z])\w+/)
     .optional()
     .messages({
       "string.pattern.base": "actor parameter can only consist of letters",
     }),
   title: Joi.string()
-    .pattern(/^[a-zA-Z]+$/)
+    .pattern(/([a-zA-Z])\w+/)
     .optional()
     .messages({
       "string.pattern.base": "title parameter can only consist of letters",
     }),
   search: Joi.string()
-    .pattern(/^[a-zA-Z]+$/)
+    .pattern(/([a-zA-Z])\w+/)
     .optional()
     .messages({
       "string.pattern.base": "search parameter can only consist of letters",
